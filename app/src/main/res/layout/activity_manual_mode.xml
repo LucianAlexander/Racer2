@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_manual_mode"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/again"
+    tools:context="com.example.lux.racer.ManualMode">
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer6"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_marginStart="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView6" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/left2"
+        android:id="@+id/imageButton10"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/textView6"
+        android:layout_marginBottom="37dp"
+        android:background="@android:drawable/screen_background_light_transparent" />
+
+    <VideoView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/videoView5"
+        android:layout_below="@+id/imageButton7"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_toStartOf="@+id/imageButton10" />
+
+    <TextView
+        android:text="On Board Cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_above="@+id/videoView5"
+        android:layout_alignEnd="@+id/chronometer5"
+        android:layout_marginEnd="15dp" />
+
+    <TextView
+        android:text="Speed Km/h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="ManualModOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView8" />
+
+    <TextView
+        android:text="Car Battery Level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/progressBar2"
+        android:layout_toEndOf="@+id/textView8" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar2"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_marginEnd="18dp" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer5"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:text="Distance -Meters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginStart="28dp" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView6"
+        android:layout_marginStart="32dp" />
+
+    <TextView
+        android:text="Time  Elapsed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/up"
+        android:id="@+id/imageButton7"
+        tools:background="@android:drawable/screen_background_light_transparent"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/down"
+        android:id="@+id/imageButton8"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:layout_below="@+id/imageButton9"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/stp"
+        android:id="@+id/imageButton15"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:layout_below="@+id/imageButton7"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp" />
+
+    <Button
+        android:text="Emergency Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/but8"
+        android:background="@android:drawable/screen_background_light_transparent"
+        tools:background="@android:drawable/screen_background_light_transparent"
+        android:layout_above="@+id/videoView5"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/chronometer6" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/right"
+        android:id="@+id/imageButton9"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:layout_alignTop="@+id/imageButton10"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
