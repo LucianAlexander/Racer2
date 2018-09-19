@@ -1,0 +1,11 @@
+BFS : è la visita in AMPIEZZA, definisce uno spanning tree(alberi ricoprenti) del grafo formato dai discovery edge. Inoltre su un grafo non pesato dato un vertice di partenza di G, riesce a calcolare il cammino con il minimo numero di lati verso un qualunque altro vertice di G. Se n Ž il numero di vertici e m il numero di lati di G, l'algoritmo costerˆ O(n+m) se il tutto Ž rappresentato con una lista di adiacenze
+
+DFS : è la visita in PROFONDITË, anche lei definisce uno spanning tree di G. Controlla la connessione del grafo, trova le componenti connesse di G, trova un percorso tra due vertici di G e inoltre trova dei cicli in G(appena c'è un arco BACK si ha un ciclo). Se n è il numero di vertici e m il numero di lati di G, anche la DFS costerˆ O(n+m) se il tutto è rappresentato con una lista di adiacenze. Se il grafo è ORIENTATO pu˜ controllare anche la connessione forte di un grafo
+
+FLOYD-WARSHALL : calcola la chiusura transitiva di un grafo G. Costa O(n^3)
+
+DAG : è l'acronimo di Directed Acyclic Graph ovvero grafo orientato aciclico. I DAG ammettono ordinamenti topologici
+
+KRUSKAL : calcola il MST ( Minimum Spanning Tree) di un grafo, ovvero uno spanning tree con il minor costo complessivo. Costa O((n+m)log n)
+
+DIJKSTRA : calcola l'albero dei cammini minimi a partire da un vertice v. Costa O(n^2 log n)

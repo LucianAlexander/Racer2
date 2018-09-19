@@ -1,0 +1,12 @@
+AvlNode rotateWithLeftChild(AvlNode k2) {SS
+  AvlNode k1 = k2.left;
+  k2.left = k1.right;
+  k1.right = k2;
+  k2.height = max(height(k2.left), height(k2.right)) + 1;
+  k1.height = max(height(k1.left), k2.height ) + 1;
+  return k1;
+}
+AvlNode doubleWithRightChild(AvlNode k1){SD
+  k1.right=rotateWithLeftChild(k1.right);
+  return rotateWithRightChild(k1);
+}

@@ -1,0 +1,15 @@
+Il materiale lo hai, su Modelli concentrati sulle tipologie di domande d'esame (riduzioni, macchine a stati, come passare da grammatiche ad automi, da er ad automi, da er a grammatiche ecc)
+
+Su algoritmi tanti tanti esercizi d'esame e studia bene le operazioni sulle principali strutture di dati:
+-operazioni su BST, cancellazioni, inserimenti, visite, verifiche isBST (stessa cosa per gli AVL con le rotazioni)
+-mappe e dizionari (funzioni hash per le mappe, ricorda hashing polinomiali, doppi e quelle strategie lì)
+-PQueues, Heap e il resto
+
+Sui grafi devi saper bene tutti gli algoritmi (almeno saperli sommariamente scrivere in pseudocodice) sia per gli sssp (dijkstra) che per gli MST (prim, kruskal) e anche casi più "rari" quali chiusura transitiva (floyd-warshall). Do' per scontato che conosci le visite BFS e DFS.
+
+Sui costi, quello che devi fare è solo esercizi su esercizi, capire quando la "dimensione dell'input" va rapportata al numero di bit (ovvero sempre quando non tratti su array o matrici), e saper almeno scrivere qualche relazione di ricorrenza (se e solo se il sottoproblema ricorsivo ha dimensione NOTA e finita)
+
+
+-La principale "difficoltà" di algoritmi è che spesso non ti viene chiesta una nozione, ma un caso da analizzare sul quale sei te a dover dedurre quale soluzione applicare (e all'esame in genere la domanda 2 è su strutture dati, la 3 su grafi o insiemi)
+
+Modelli invece, a parte qualcosa di Logica che non ci ho mai capito nulla, è molto più semplice, basati sui testi d'esame e vai sul sicuro!
