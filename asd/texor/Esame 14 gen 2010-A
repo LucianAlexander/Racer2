@@ -1,0 +1,80 @@
+## 1A ## 
+
+Un linguaggio di tipo 2 é generato da una grammatica di tipo 2, si puó passare da una grammatica di tipo 2 seguendo questo procedimento:
+
+Passaggio preliminare:
+- Inserisco in pila S# dove S é l´assioma e # é un carattere speciale.
+
+Passi Ricorsivi:
+- Se il simbolo affiorante é un non terminale inserisco in pila non deterministicamente tutte le possibili produzioni a partire da quel non terminale.
+- Se il simbolo affiorante é un terminale T e in input leggo proprio T allora cancello T dalla pila e muovo la testina in avanti
+
+Fine
+Termino in uno stato accettante se la pila contiene solamente il carattere # e l´input é vuoto.
+
+
+## 1B ##
+
+()
+
+L{ wcw | w app {a,b}* , c app {a,b}}
+
+{a+b}*{a+b}{a+b}*
+
+
+sta	pila	 carattere			sta	pila
+
+0		\			\			 -->	0		S#	
+
+								
+								|-->	1		aSa
+								|-->	1		bSb
+1		S			\			|-->	1		a
+								|-->	1		b
+								
+1		a			a			 -->	1		\
+1		b			b			 -->  1		\
+1		#			\			 --> 	2		\
+
+
+## 2A ##
+
+Per ogni MdTND M esiste una MdTD M´ equivalente a tre nastri.
+
+Rappresentiamo l´albero di computazione della MdTND M. Definiamo g il massimo grado di non determinismo che si presenta nel grafo. Assegnamo per ogni nodo del grafo, un intero i (1,2..,n) n<=g  ad ogni possibile scelta effettuabile da tale nodo.
+
+Tramite un sequenza di interi siamo quindi in grado di rappresentare un possibile percorso di computazione della macchina M.
+
+Ora sulla MdTD M´
+
+-Usiamo il primo nastro per memorizzare la configurazione iniziale di M.
+
+-Sul secondo nastro generiamo mano a mano tutte le sequenze di interi (1,2,...g) in ordine lessicografico.
+
+-Per ogni sequenza generata sul nastro due:
+	- Si copia dal nastro 1 la configurazione iniziale.
+	- Si effettuano le computazioni dettate dalla sequenza sul nastro 2
+	- Se si arriva ad una configurazione finale si termina, altrimenti si passa alla sequenza successiva (nastro 2) e si ripetono i passi precedenti.
+	
+	Se M accetta una stringa in k  passi allora M´ accettera´ la stessa stringa in O(kd^k) dove d é il grado di non determinismo della macchina.
+	
+	 
+## 2B ##
+
+Si riuscirebbero a risolvere tutti i problemi di NP in tempo polinomiale, quindi risulterebbe che P=NP non si avrebbero conseguenze sulle relazioni tra PSPACE e NPSPACE
+
+
+## 3A ##
+
+not(A)= A nand T
+
+A and B = (A nand B) nand T
+
+
+## 3B ##
+
+A and (A or C) and (B or A) and (B or C)
+
+modelli:
+{A,B}
+{A,C}

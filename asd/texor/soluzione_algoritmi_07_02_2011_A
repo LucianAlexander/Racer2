@@ -1,0 +1,164 @@
+## 1A ##
+
+O(n)
+
+## 1B ##
+
+//come convenzione la lista vuota corrisponde a 0
+
+public static void decrementa(ListIterator<Integer> cifre) {
+if (cifre.hasNext()) {
+	Integer val = cifre.next();//valore corrente
+	if (val = 1 && !cifre.hasNext) {
+	cifre.remove();
+	}else if(val > 0){
+	cifre.set(val - 1);//assegna un valore all'elemento corrente (costo costante)
+	} else {
+	cifre.set(9);//assegna il valore 9 all'elemento corrente (costo costante)
+	decrementa(cifre);
+	}
+}
+}
+
+//costo O(n)
+
+
+## 1C ##
+
+//
+public ListIterator<Integer> differenza(ListIterator<Integer> a, ListIterator<Integer> b){
+	if( !isZero(b)){
+		rewind(b);
+		
+		decrementa(a);
+		rewind(a);
+		decrementa(b);
+		rewind(b);
+		
+		return differenza(a, b);
+	} else {
+		return a;
+	}
+	
+}
+
+
+// teta(n)
+private static void rewind(ListIterator<Integer> l){
+	while(l.hasPrevious())
+		l.previous();
+}
+
+//teta(1)
+private static boolean isZero(ListIterator<Integer> l){
+	return if( l.hasNext() && l.next() == 0);	
+}
+
+
+//nel metodo scritto sopra:
+
+Il caso peggiore si presenta quando i due numeri a e b sono uguali. Quindi hanno stessa dimensione. Se chiamiamo d la dimensione dell'input avremo che d=|a| + |b| che nel caso peggiore diventa d= 2|a|
+
+caso peggiore O(10^n n^2);
+
+## 2A ##
+
+Una coda a prioritá é un tipo di dato astratto che memorizza elementi di tipo chiave-valore. La coda a prioritá dispone di metodi per estrarre o cancellare l´elemento piú grande/piccolo della collezione secondo un ordine definito sulle chiavi.
+
+public interface PrioCodaADT<K,V>{
+
+	public int size();
+	public boolean isEmpty();
+	public Entry<K,V> insert(K key, V value);
+	public Entry<K,V> removeFirst();
+	public Entry<K,V> first();
+}
+
+## 2B ##
+
+public class PQListaOrdinata<V> implements PrioCodaADT<Integer,V>{
+	private LinkedList<Entry<Integer,V>> list;
+	
+	public PQListaOrdinata(); // costante
+	public int size(); // costante
+	public boolean isEmpty(); //costante
+	public Entry<Integer,V> removeFirst(); //costante
+	public Entry<Integer,V> first(); //costante
+	
+	// O(n) n sono le entry persenti attualmente in lista
+	public Entry<Integer,V> insert(Integer key, V value){ 
+		if(key == null) return null;
+		Entry<Integer,V> nuova = Entry<Integer,V>(key,value);
+		if(this.isEmpty()){
+			list.add(nuova);
+		}else{
+			ListIterator<Entry<Integer,V>> it = list.listIterator();
+			while(it.hasNext()){
+				if(it.next().getKey() < key){
+					it.previous();
+					it.add(nuova);
+					break;
+				}
+			}
+		}
+		return nuova;
+	}
+}
+
+
+## 2C ##
+public static void PQsort(int[] array){
+	PQListaOrdinata<Object> PQList = new PQListaOrdinata<Object>();
+	
+	
+	for(int i , i<array.lenght , i++){
+		PQList.insert(array[i],null);
+	}
+	for(int i , i<array.lenght , i++){
+		array[i]= PQList.removeFirst().getKey();
+	}
+	return array;
+}
+
+//costo inserimento 1+2+3+...+n; costo creazione array = n; costo totale teta(n^2)
+
+ 
+## 3A ##
+
+Dato un grafo G1(V,E), si definisce chiusura transitiva un nuovo grafo G2(V,E´) definito sugli stessi nodi di G1 ma con un nuovo insiseme di lati E´ >= E. per ogni coppia di lati v1, v2 presente in V si verifica se da v1 si possa raggiungere v2 in caso affermativo si aggiunge il lato <v1,v2> all´insieme E´.
+
+## 3B ##
+
+public class Graph{
+	private LinkedList<Vertex> vertices;
+	private LinkedList<Edge> Edge;
+	
+	public Graph();
+	public Iterator<Vertex> getVertices();
+	public Iterator<Edge> getEdges();
+	public void insertVertex(Vertex v);
+	public void insertEdge(Vertex v1, Vertex v2);
+	public boolean areAdiacent(Vertex v1, Vertex v2);
+	
+	
+	public Graph chiusuraTransitiva(){
+		Graph result = new Graph();
+		
+		//copia i nodi
+		for(Vertex v: this.getVertices())
+			result.insertVertex(v);
+		//copia i lati
+		for(Edge e: this.getEdges())
+			result.insertEdge(e.getFrom(),e.getDest());
+			
+		for(Vertex act: getVertices())
+			for(vertex v1: getVertices())
+				for(Vertex v2: getVertices())
+					if(!v1.equals(v2) && !v1.eqauls(act) && !v2.eqauls(act) && 							areAdiacent(v1,act) &&	areAdiacent(act,v2)){
+							result.insertEdge(v1, v2);
+					}
+		return result;
+	}
+} 
+ 
+

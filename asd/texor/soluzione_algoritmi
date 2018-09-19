@@ -1,0 +1,97 @@
+## 1A ##
+L = v.lenght()
+
+ CIOP -> O(L)
+ CUCU -> O(L)
+
+ CIP  O(n/x log_2(n/x))
+
+
+
+## 1C ##
+
+[16]
+
+
+## 2A ##
+
+public interface Dict<V>{
+	
+	public Entry<V> insert(int key, V value);
+	public Entry<V> remove(Entry<E> entry);
+	public Entry<V> find(int key);
+	public ListIterator<Entry<E>> findAll(int key);
+	public List<Entry<E>> removeAll(int key);
+	public int size();
+	public boolean isEmpty();
+	public ListIterator<Entry<E>> entries();
+}
+
+public class BinTreeNode<V> implents Entry<V>{
+	private BinTreeNode<V> left;
+	private BinTreeNode<V> right;
+	
+	public BinTreeNode(int k, V v);
+	public BinTreeNode<V> getLeft();
+	public BinTreeNode<V> getRight();
+	public BinTreeNode<V> setLeft();
+	public BinTreeNode<V> setRight();
+}
+
+
+public class BinTreeDict<V> implements Dict<V>{
+	private BinTreeNode<V> root;
+	
+	public BinTreeDict( BinTreeDict<V> r);
+	public int size();
+	public boolean isEmpty();
+	public Entry<V> remove(Entry<E> entry);
+	public Entry<V> find(int key);
+	public List<Entry<E>> removeAll(int key);
+	public ListIterator<Entry<E>> entries();
+
+	public Entry<V> insert(int key, V value){
+		BinTreeNode<V> result = new BinTreeNode(key,value);
+		insert(root, result);
+		return result;
+	}
+	
+	private BinTreeNode<V> insert(BinTreeNode<V> r,BinTreeNode<V> toAdd){
+		if(r == null) return toAdd;
+		if(r.getKey() >= toAdd.getKey()) r.setLeft(insert(r.getLeft(),toAdd));
+		else r.setRight(insert(r.getRight(),toAdd));
+	}
+	
+	public ListIterator<Entry<E>> findAll(int key){
+		LinkedList<Entry<V>> list = new LinkedList<Entry<V>>();
+		findAll(root,key,list);
+		return list;
+	}
+	
+	private void findAll(BinTreeNode<V> r,int key, LinkedList<Entry<V>> list){
+		if(r== null) return;
+		if(key > r.getKey()) findAll(r.getRight(),key,list);
+		else{
+			if(key== r.getKey()) list.add(r);
+			findAll(r.getLeft(),key,list);
+		}
+	}
+	
+}
+
+
+## 3A ##
+
+class Grafo{
+	private enum label{ DISCOVERY, BACK }
+	
+	Map<Vertex,Boolean> vMap
+	Map<Edge, label> eMap
+
+	public static boolean isVisited(Vertex v);
+	public static label getLabel(Edge e);
+}
+
+
+// basta scorrere la lista dei nodi sia per il punto 3A che per il punto 3B (chiesto al prof d'amore)
+

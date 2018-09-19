@@ -1,0 +1,146 @@
+## 1A ##
+join (n^2/4) -> O(n^2)
+
+recurse O ( n² log(n) )
+
+## 1B ##
+
+[3,2,3,3,2]
+
+## 1C ##
+
+In Place
+
+Si usa un algoritmo che per ogni lettera L scorre l´array e conta le occorrenze di L, sostituisce la lettera con la sua occorrenza.
+
+Non In Place
+
+Si usa un heap di appoggio dove si salvano le occorrenze, si scorre l´array una volta per popolare l´heap e una seconda volta per sostituire le occorenze.
+
+## 2A ##
+
+
+class BSTNode<V>{
+
+	private V value;
+	private int key;
+	private BSTNode<V> left, right;
+	
+	public BSTNode(int k, V v);
+	public V getValue();
+	public V getKey();
+	public BSTNode<V> getLeft();
+	public BSTNode<V> getRight();
+	public BSTNode<V> setLeft();
+	public BSTNode<V> setRight();
+}
+
+class BST<V>{
+	
+	private BSTNode<V> root; 
+		
+	public BST(BSTNode<V> r);
+	public int size();
+	public BSTNode<V> insert(int k, V v);
+	public BSTNode<V> insert(BSTNode<V> n);
+	public BSTNode<V> remove(int key);
+	public List<BSTNode<V>> removeAll(int key);
+	public V find(int k);
+	public ListIterator<BSTNode<V>> findAll(int k);
+}
+
+## 2B ##
+///non ottimizzato
+
+public List<Integer> notInRange(int a, int b){
+	LinkedList<Integer> result = new LinkedList<Integer>();
+	notInRange(root,result,a,b); 
+	return result.isEmpty()? null : result;
+	
+}
+
+private void notInRange(BSTNode<V> n, List<Integer> list, int a, int b){
+	if(n == null) return;
+	Integer key = n.getKey();
+	notInRange(n.getLeft(),list,a,b);
+	if( key < a || key > b )
+		list.add(n);
+	notInRange(n.getRight(),list,a,b);
+}
+
+
+
+
+## 2C ##
+
+// non ottimizzato O(nlog(n))
+
+public int maxGap(){
+	return maxGap(root,0);
+}
+
+private int maxGap(BSTNode<V> n,Integer max){
+	if( n == null ) return max;
+	int actKey = n.getKey();
+	
+	if(n.getLeft() != null){
+		lGap = actKey - findMax(n.getLeft);
+		if(lGap > max) max = lGap;
+		max = maxGap(n.getLeft(), max);
+	}
+	if(n.getRight() != null){
+		rGap = findMin(n.getRight()) - actKey;
+		if(rGap > max) max = rGap;
+		max = maxGap(n.getRight(), max);
+	}
+	
+	return max
+	
+}
+
+private int findMax(BSTNode<V> n){
+	if(n.getRight() == null) return n.getKey();
+	return findMax(n.getRight());
+}
+
+private int findMin(BSTNode<V> n){
+	if(n.getLeft() == null) return n.getKey();
+	return findMin(n.getLeft());
+}
+
+
+
+// Ottimizzato O(n)
+
+public int maxGap(){
+	return maxGap(root,null);
+}
+
+public int maxGap(BSTNode<V> n, Integer pre){
+	if(n == null) return 0;
+	
+	//chiamta left
+	int leftGap = maxGap(n.left(), pre);
+	
+	//controllo nodo attuale
+	if(pre != null)
+		int gap = n.getKey() - pre;
+	else
+		int gap = 0;
+		
+	pre = n.getKey();
+	
+	//chiamata right
+	int rightGap = maxGap(n.right(), pre);
+	
+	
+//ritorno il massimo
+	if(leftGap > gap)
+		gap = leftGap;
+	if(rightGap > gap)
+		gap = rightGap;
+		
+	return gap;
+}
+
+

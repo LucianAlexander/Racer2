@@ -1,0 +1,197 @@
+## 1A ##
+
+d= a.length + log_2(i);
+
+il metodo m2 costa ( a.length - i )
+
+il caso peggiore si presenta quando aumentiamo a.lenght e lasciamo invariato i. Quindi il caso peggiore si presenta quando tutti i bit di d sono impiegati sull'array. Possiamo concludere che m2 ci costa O(d).
+
+
+## 1B ##
+(n = a.length)
+
+Il metodo m1 ordina l'array in ordine crescente.
+Cicla sulle celle di a e chiama per ogni cella il metodo m2. Quindi nel caso peggiore si verifica un costo 1+2+3+...+n = (n(n-1))/2 =>  quindi l'algoritmo e' O(n^2)
+
+nel caso migliore invece si ha un costo pari a
+n dove n e' la lunghezza dell'array. quindi l''algoritmo e' Omega(n);
+
+Equazione di ricorrenza T(n) = T(n-1) + cn
+
+## 1C ##
+
+gli algoritmi lavorano in place, sfruttando lo stack per la memorizzazione dell'indice e l'attivazione delle chiamate ricorsive che sono in numero lineari nella dimensione dell'input.
+
+## 2 ##
+
+public class BSTNode<V>{
+	private int key;
+	private V value;
+	private BSTNode<V> left,right;
+	
+	public BSTNode(int k, V value);
+	public BSTNode<V> getLeft();
+	public BSTNode<V> getRight();
+	public void setLeft();
+	public void setRight();
+	public V getValue();
+	public int getKey();	
+}
+
+public class BST{
+	private BSTNode<V> root;
+	
+	public BST(BSTNode<V> r);
+	public BSTNode<V> insert(int key, V value);
+	public BSTNode<V> remove(BSTNode<V> n);
+	public BSTNode<V> find(int k);
+	public int size();
+	public boolean isEmpty();
+	public LinkedList<BSTNode<V>> removeAll(int k);
+	public Iterator<BSTNode<V>> findAll(int k);	
+	
+	\\preorder -> O(n)
+	public void potatura(int a, int b){
+		potatura(root,a,b);
+	}
+	private BSTNode<V> potatura(BSTNode<V> n, int a, int b){
+		if(n == null) return null;
+		if(n.getKey() < a)
+			return potatura(n.getRight(),a,b);
+		else if(n.getKey()> b)
+			return potatura(n.getLeft(),a,b);
+		else{
+			n.setLeft(potatura(n.getLeft(),a,b));
+			n.setRight(potatura(n.getRight(),a,b));
+			return n;
+		}
+	}
+	
+	public int dict2Map(){
+		return dict2Map(root);
+	}
+	
+	// errata supposizione che le chiavi uguali siano consecutive
+	private int dict2Map(BSTNode<V> n){
+		if(n == null) return 0;
+		int actKey = n.getKey();
+		//left e' uguale
+		if(n.getLeft() != null && n.getLeft().getKey() == actKey)
+			n.setLeft( n.getLeft().getLeft());
+			return 1 + dict2Map(n.getLeft());
+		//right e' uguale
+		if(n.getRight() && n.getRight().getKey() == actKey)
+			n.setRight( n.getRight().getRight());
+			return 1 + dict2Map(n.getRight());
+		//ho entrambi i figli
+		return dict2Map(n.getLeft()) + dict2Map(n.getRight());
+	}
+}
+
+## 3 ##
+
+
+Usiamo una struttura di tipo lista delle adiacenze. Sfruttando una mappa per associare ad ogni nodo la sua lista delle adiacenze. Ogni nodo presenta un campo boolean e ogni lato presenta un campo enum Stato che saranno usati nelle visite dell'albero.
+
+	Non uso la matrice delle adiacenze perche' il grafo e' sparso e usare n^2 celle sarebbe inutile.
+		
+	Non uso la lista degli archi, perche' il metodo adjacent() mi costa O(m) deve m e' il numero di lati.
+	
+	
+	
+public class Vertex{	
+	private String nick;
+	private int lon,lat;
+	private Profile profile;
+	private boolean visited;
+	
+	set,get & costruttore.
+}
+
+public class Graph{
+	private HashMap<Vertex,LinkedList<Edge>> map;
+	
+	public Graph();
+	public void insertEdge(Vertex v1, Vertex v2);
+	public void insertVertex(Vertex v);
+	public Iterator<Vertex> vertices();
+	public Iterator<Edge> edges();
+
+	private Vertex find(String nick){
+		for(Vertex v: this.vertices())
+			if(v.getNick().equal(nick))
+				return v;
+		return null;
+	}
+	
+	
+	public int possibiliAmici(String nick){
+		Vertex v = find(nick);
+		if(v != null){
+		//pulisco il grafo
+			for(Vertex v: this.vertices())
+				v.setVisited(false);
+			for(Edge e: this.edges())
+				e.setStatus(null);
+			
+			LinkedList<V> first = new LinkedList<V>();
+			first.add(v);
+			return possibiliAmici(first, 0);
+		}else{
+			return 0; 
+		}
+	}
+	
+	//le etichette sui lati sono superflue, podrebbe essere troppo piccolo int per level
+	private int possibiliAmici(LinkedList<V> thisLevel, int level){
+		LinkedList<V> nextLevel = new LinkedList<V>();
+		for(Vertex v: thisLevel){
+			for(Edge e: map.valueOf(v))
+				if(e.getStatus() == null){
+					Vertex opposite = e.getOpposite()
+					if(opposite.isVisited()){
+						opposite.setVisited(true);
+						nextLevel.add(opposite);
+						e.setStatus(Status.EXPLORED);
+					}
+				}
+		}
+		int result = possibiliAmici(nextLevel, level+1);
+		if(level > 1)
+			return result+thisLevel.size();
+		else
+			return result;
+	}
+	
+	
+	
+	public boolean compatibili(String nick1, String nick2);
+	public double distanzaIstantanea(String nick1, String nick2);
+	
+	public List<Vertex> compatibleInterRange(String nick, double d){
+		Vertex v1 = find(nick);
+		if(v1 == null) return null;
+		LinkedList<Vertex> result = new LinkedList<Vertex>();
+		for(Vertex v2: vertices())
+			if(compatibili(nick,v2.getNick()) && distanzaIstantanea(nick,v2.getNick) < d );
+				result.add(v2);
+		return result;
+	}
+}
+
+
+
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+## 1 ##
+
+inverte l'array
+
+Costo Temporale O(n) (scorre l'array)
+
+Costo Spaziale O(n) per ogni cella salva in stack 2 interi.
+
+
+public static void invert(int[] a){
+	int temp;
+	for(int i = 0; i< a.lenght /2 ; i++){
+		temp = a[i]
+		a[i] = a[a.lenght-1-i];
+		a[a.lenght-1-i] = temp;
+	}
+}
+
+
+
+## 2 ##
+
+public class Node{
+	private Node left,rigth;
+	
+	public Node();
+	public void setLeft();
+	public void setRight();
+	public Node getLeft();
+	public Node getRight();
+}
+
+public class BinTree{
+	private Node root;
+	
+	public BinTree(Node r);
+	private insert(Node n);
+	private Node remove(Node n);
+	private size();
+	private isEmpty();
+	
+	public boolean isCompleto(){
+		return isCompleto(root,null,1)
+	}
+	private boolean isCompleto(Node r, Integer h, int act){
+		//sono una foglia
+		if(r.getLeft() == null && r.getRight() == null){
+			if(h == null){
+				h=act;
+				return true;
+			}else if(h = act)
+				return true;
+			else
+				return false;
+		
+		}else if( r.getLeft() != null && r.getRight() != null ){
+			return isCompleto(r.getLeft()) && isCompleto(r.getRight());
+		}else{
+			return false;
+		}
+	}
+	
+	public Node maxCompleto(){
+		if(isEmpty())
+			return null;
+		Node result = null;
+		maxCompleto(root,result,-1);
+		return result;
+	}
+	
+	private int maxCompleto(Node r, Node rMax, Integer hMax){
+		//sono una foglia
+		if(r.getLeft() == null && r.getRight() == null){
+				if(1 > hMax){ rMax = r; hMax = 1; }
+				return 1;	
+						
+		//sono un nodo con due figli
+		}else if( r.getLeft() != null && r.getRight() != null ){
+			int resLeft = maxCompleto(r.getLeft(), rMax, hMax);
+			int resRight = maxCompleto(r.getRight(), rMax, hMax);
+			//due figli completi
+			if( resLeft == resRight && resLeft != -1){
+				if(resLeft +1 > hMax){ rMax = r; hMax = resLeft+1 }
+				return resLeft+1;
+			//due figli incompleti
+			}else
+				return -1;
+				
+		//ho solo figlio sinistro
+		}else {
+			if( r.getLeft() != null){
+				maxCompleto(r.getLeft(), rMax, hMax);
+			else
+				maxCompleto(r.getRight(), rMax,hMax);
+			return -1;
+		}	
+	}
+}
+
+
+## 3 ##
+
+	public void dfs(Graph g){
+		for(Vertex v: g.getVertices())
+			v.setVisited(false);
+		for(Edges e: g.getEdges())
+			e.setStatus(Status.UNVISITED);
+		for(Vertex v: g.getVertices())
+			if(v.isVisited())
+				dfs(g,v);	
+	}
+	public void dfs(Graph g, Vertex v1){
+		v1.setVisited(true);
+		for(Edge e: v.getEdges()){
+			if(e.getStatus() == Status.UNEXPLORED ){
+				Vertex opposite = e.getOpposite(v1);
+				if(!opposite.isVisited())
+					e.setStatus(Status.DISCOVERY);
+					dfs(g,ooposite);		
+				else
+					e.setStatus(Status.BACK);
+			}
+		}
+	}

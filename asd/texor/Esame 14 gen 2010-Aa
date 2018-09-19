@@ -1,0 +1,145 @@
+## 1A ##
+
+Somma matrice.
+
+O(n X m)
+
+## 1B ##
+
+d= n X m   dimensione dell'input.
+
+O( d )
+
+## 1C ##
+
+public static int matrixSum(int[][] matrix){
+	int sum = 0;
+	for(int i = 0, i < matrix.lenght , i++){
+		for(int j = 0, j< matrix[i].lenght, j++){
+			sum += matrix[i][j];
+		}
+	}
+	return sum;
+}
+
+## 2A ##
+
+public class TreeNode{
+	private int key;
+	private LinkedList<TreeNode> children;
+	
+	public TreeNode(int key);
+	public int getKey();
+	public ListIterator<TreeNode> children();
+	public void addChild(TreeNode n);
+	public void removeChild(TreeNode n);
+}
+	
+public class Tree{
+	private TreeNode root;
+	
+	public Tree(TreeNode n);
+	public int size();
+	public void insert(TreeNode n);
+	public TreeNode remove();
+}
+
+
+public static int somma(TreeNode radice, int min, int max){
+	return somma(radice,min, max, 0);		
+}
+public static int somma(TreeNode r, int min, int max, int deep){
+	int result = 0;
+	if(r == null) return 0;
+	for(TreeNode n: r.children()){
+		result += somma(n,min,max,deep+1);
+	}
+	if(r.getKey() >= min && r.getKey() <= max)
+		result += r.getKey();
+	}
+	
+	return result;
+}
+
+
+public static int[] cercaPercorso(TreeNode radice, int k){
+	LinkedList<Integer> result = new LinkedList<Integer>();
+	cercaPercorso(radice,k,result);
+	if(result.isEmpty())
+		return null;
+	else
+		return result.toArray();
+}
+
+public static boolean cercaPercorso(TreeNode r, int k, LinkedList<Integer> list) 
+	if(r == null ) return false;
+	if( r.getKey() == k){
+		list.addFirst(r.getKey());
+		return true;
+	}else{
+		boolean onRoad = false;
+		for(TreeNode n: r.children())
+			if( cercaPercorso(r,k,list) ){
+				onRoad = true;
+				break;
+			}
+		
+		if(onRoad == true)
+			list.addFirst(r.getKey());
+		return onRoad;
+	}	
+}
+
+
+## 3A ##
+
+Grafo semplice non orientato
+
+Un insieme di vertici V e un insieme di lati E, ogni lato collega esattamente 2 vertici.
+
+Grafo connesso
+
+Un grafo connesso e' tale che presi due vertici di questo esiste sempre una sequnza di lati che collega i due vertici.
+
+Componente connessa
+
+Un sotto-grafo connesso. Un solo nodo senza lati si considera una componente connessa.
+
+
+
+## 3B ##
+
+lista delle adiacenze con i label nei vertici e nei lati
+
+
+## 3C ##
+
+public static int compConn(Graph g1){
+	int max = 0;
+	for(Vertex v: g1.getVertices()){
+		if(!v.isVisited())
+			int act = dfs(v);
+			if(act > max)
+				max = act;
+	}
+}
+
+private static int dfs(Vertex v){
+	int numVertex = 1;
+	v.setVisited(true);
+	for(Edges e: v.getEdges()){
+		Vertex opp = e.getOpposite(v);
+		if(opp.isVisited())
+			e.setStatus(BACK);
+		else{
+			e.setStatus(TREE);
+			numVertex += dfs( opp );
+		}
+	}
+	return numVertex;
+
+}
+
+
+
+

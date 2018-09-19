@@ -1,0 +1,109 @@
+## 1A ##
+
+Il metodo mistero2 costa O( n )
+Il metodo mistero1 chiama per ogni cella dell'array il metodo mistero2. Quindi abbiamo un costo n(n-1)/2 -> O(n^2)
+
+## 1B ##
+
+Caso migliore: l'array risulta ordinato, quindi mistero2 si riduce a costo unitario e mistero1 viene chiamato n volte. Quindi costo complessivo O(n)
+
+
+## 1C ##
+
+{-2,-2,-1,0,3,4}
+
+
+## 2 ##
+
+public class Folder{
+	private String name;
+	private int numb;
+	private LinkedList<File> files;
+	private LinkedList<Link> links;
+	private LinkedList<Folder> folders;
+	
+	...
+	get, set, add and contructor;
+	...
+
+
+}
+
+public class File{
+	private String name;
+	private int dim;
+	
+	...
+	get, set and contructor;
+	...
+}
+
+public class Link{
+	private String name;
+	private String path;
+	
+	...
+	get, set and contructor;
+	...
+}
+
+public class FileSystem{
+
+	private Folder root;
+	
+	public FileSystem(){
+		root = new Folder("/")
+	}	
+
+	public List<String> search(String name){
+		LinkedList<String> result = new LinkedList<String>();
+		search(name,f,"", result);
+		(result.isEmpty())? return null : return result;
+	}
+	
+	public void search(String name, Folder f, String path, LinkedList<String> res){
+		path = path + f.getName() + "/";
+		if(f.getName().equals(name)) res.add(path);
+		for(File file: f.getFiles()){
+			if(file.getName().equals(name)) res.add(path+file.getName());
+		}
+		for(Folder folder: f.getFolders){
+			search(name,folder,path,res);
+		}
+	}
+	
+	public long getSize(Folder f){
+		long result = 0;
+		if(f == null) return 0;
+		for(File file: f.getFiles()){
+			result += (long) file.getDimension();	
+		}
+		for(Folder folder: f.getFolders){
+			result += (long) getSize(folder);
+		}
+		return result;
+	}
+}
+
+## 3 ##
+
+Puó essere utilizzata una struttura ad albero dove ogni nodo memorizza un riferimento al genitore (la radice dell´albero punta a se stessa).Il contenuto della radice é utilizzato come elemento rappresentativo dell´insieme.
+FIND: si seguono i riferimenti ai padri fino a restituire la radice. O(n)
+UNION: si fa puntare la radice di uno dei due insiemi all´altro O(1)
+MAKESET: si crea un nuovo elemento e lo si fa puntare a se stesso. O(1)
+
+
+Euristiche:
+
+Union-By-Size
+Nell´unione degli insieme, si sceglie di far puntare il riferimento dell´insieme piú piccolo, alla radice dell´insieme piú grande.
+
+Path-Compression
+Durante una operazione di find modifico i riferimenti ai padri dei nodi dell´insieme, facendoli puntare direttamente alla radice dell´insieme. Riducendo l´altezza dell´albero.
+
+
+Algoritmo:
+Un algoritmo che sfrutta queste strutture dati é l´algoritmo Kruskal
+
+ 
+

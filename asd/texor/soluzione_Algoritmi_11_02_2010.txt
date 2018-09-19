@@ -1,0 +1,180 @@
+## 1A ##
+Il metodo "metodo1Ric" tramite una visita in preordine restituisce il numero di figli del nodo con piu' figli. Quindi il costo di "metodo1" (che chiama "metodo1Ric" ) teta(n) 
+
+## 1B ##
+Il metodo "metodo2Ric" visita un solo percorso dalla radice ad una foglia. Quindi costa O(h) dove h é l´altezza dell´albero. Visto che l´albero non risulta bilanciato e non rispetta regole precise, possiamo concludere che a causa del caso peggiore (un solo figlio per nodo) il costo in funzione dei nodi di "metodo2" sia O(n)
+
+## 1C ##
+Prendendo in considerazioni le caratteristiche dell´albero i costi delle due funzioni sono:
+
+- metodo1 -
+	il costo non cambia visto che viene effettuata una visita in preordine.
+	
+- metodo2 -
+	il costo cambia. Infatti il costo del metodo dipende dall´altezza dell´albero che qui risulta bilanciato (con k figli ogni nodo interno).
+	Nel caso k=1 si ripresenta il caso peggiore del punto 1B. O(n)
+	Nel caso k>1 possiamo affermare che il costo del metodo sia O(log_k (n)) dove k é la base del logaritmo. E per ricondurci alle funzioni principali possiamo dire che il costa sia O(log_2 (n))
+
+## 2A ##
+
+Una mappa é una struttura dati pensata per memorizzare coppie chiave-valore, non sono ammessi elementi con stessa chiave.
+
+TDA Mappa Interface:
+
+
+public Interface MappaADT<V>{
+
+	public Entry<V> insert(int key,V value);
+	public Entry<V> remove(int key);
+	public int size();
+	public boolean isEmpty();	
+	public V get(int key);
+	public Iterator<Integer> keys();
+	public Iterator<V> values()
+	public Iterator<Entry<V>> entries();
+
+}
+
+## 2B ##
+
+Un Dizionario é una struttura dati pensata per memorizzare coppie chiave-valore, al contrario della mappa ammette oggetti chiavi dublicate.
+
+public Interface DizionarioADT<V>{
+
+	public Entry<V> insert(int key,V value);
+	public Entry<V> remove(Entry e);
+	public int size();
+	public boolean isEmpty();	
+	public V get(int key);
+	public Iterator<Entry<V>> getAll(int key)
+	public Iterator<Entry<V>> entries();
+}
+
+
+## 2C ##
+
+public class Dizionario<V> extends Mappa<LinkedList<V>> implements DizionarioADT<V>{
+	
+	public Dizionario{
+		super();
+	}	
+	
+	public int size(){
+		int size = 0;
+		for(LinkedList<V> l: super.values()){
+			size += l.size();
+		}		
+		return size;
+	}
+	
+	public V get(int key){
+		LinkedList<V> l = super.get(key);
+		return l.getFirst();
+	}
+	
+	public Entry<V> insert(k key, V value){
+		LinkedList<V> l = super.get(key);
+		
+		//era vuota
+		if(l == null){
+			l = new LinkedList<V>();
+			l.add(value);
+			Entry<LinkedList<V>> e = new Entry(key, l)
+		}else{
+			l.add(value);
+		}
+		return new Entry<V>(key, value);
+	}
+	
+	public Entry<V> remove(Entry<V> e){
+		LinkedList<V> l = super.get(e.getKey());
+		for(V value: l.iterator()){
+			if(value.equals(e.getValue())){
+				l.remove(l.getValue());
+				return e;
+			}
+		}
+		return null;
+	}
+	
+	public Iterator<Entry<V>> getAll(int key){
+		LinkedList<V> l = super.get(e.getKey());
+		LinkedList<Entry<V>> result = new LinkedList<Entry<V>>();
+		for(V value: l.iterator()){
+			result.add(new Entry<V>(key, value));
+		}
+		
+		return result.iterator();
+	}
+	
+	public Iterator<Entry<V>> getAll(int key){
+		LinkedList<Entry<V>> result = new LinkedList<Entry<V>>();
+		
+		for(LinkedList<V> list: super.values()){
+			for(V value: list.iterator()){
+				result.add(new Entry<V>(key, value));	
+			}			
+		}
+		return result.iterator();
+	}
+}
+
+
+
+## 3A ##
+
+Una coda a prioritá é un tipo di dato astratto che memorizza elementi di tipo chiave-valore. La coda a prioritá dispone di metodi per estrarre o cancellare l´elemento piú grande/piccolo della collezione secondo un ordine definito sulle chiavi.
+
+public interface PrioCodaADT<V>{
+
+	public int size();
+	public boolean isEmpty();
+	public Entry<V> insert(int key, V value);
+	public Entry<V> removeFirst();
+	public Entry<V> first();
+
+}
+
+## 3B ##
+
+La struttura dati Max-Heap é un tipo di implementazione del TDA coda a prioritá. Un Max-Heap sfrutta un albero binario completo per memorizzare gli elementi. Se N é un nodo e P é il padre di N allora N.key <= P.key.
+
+ - size() e isEmpty() ha un costo costante
+ - max() ha un costo costante, basta osservare la radice dell´albero (ha la chiave piú grande secondo l´ordinamento)
+ - insert() e remove() hanno un costo O(Log(n)), infatti dopo aver inserito o rimosso un elemento dall´albero, si deve controllare se la condizione di ordinamento é rispettata. In caso contrario si devono effetture scambi tra i nodi per ripristinare l´ordinamento. Gli scambi tra padre e figlio sono O(h) dove h é l´altezza dell´albero, visto che parliamo di un BT Completo l´altezza risulta log(n).
+
+## 3C ##
+
+	public class MinHeap<V>{
+	
+		private MaxHeap<V> maxH;
+		
+		public MinHeap(){
+			maxH = new MaxHeap<V>();
+		}
+		
+		public int size(){
+			return maxH.size();
+		}
+		public boolean isEmpty(){
+			return  maxH.isEmpty();
+		}
+		
+		public Entry insert(int kery, V value){
+			return maxH.insert(-key,value);
+		}
+		
+		public Entry<V> removeFirst(){
+			 return revertEntry( maxH.removeFirst() );
+		}
+		
+		public Entry first(){
+			return revertEntry( maxH.first() );
+		}
+		
+		private static Entry<V> revertEntry(Entry<V> e){
+			return new Entry<V>(-(e.getKey()), e.getValue());
+		}
+		
+	
+	}

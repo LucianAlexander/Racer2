@@ -1,0 +1,160 @@
+## 1A ##
+	recurse'() -> O(n)
+	recurse'() -> O(2n) -> O(n)
+	
+## 1B ##
+
+	ritorna 3 (numero di cifre uguali a a[k] prima e dopo k)
+	
+## 1C ##
+
+
+static int recurse( int[] a, int k) {
+	// assumere 0<=k<=a.length
+	int l = 1
+	
+	int indexL = k;
+	while(indexL > 0 && a[indexL-1] == a[indexL] ){
+		l++;
+		indexL--;
+	}
+	
+	int indexR = k;
+	while(indexR < a.lenght-1 && a[indexL+1] == a[indexL] ){
+		l++;
+		indexL++;
+	}
+	
+	return l;
+}
+
+## 2A ##
+
+ class BinaryNode{
+ 	private int k;
+ 	private int v;
+ 	private BinaryNode left, right;
+ 	
+ 	
+	public BinaryNode(int k){
+		this.k = k;
+		v = 0;
+	}	
+ 	public int getKey(){return k;}
+ 	public int getValue(){return v;}
+ 	public BinaryNode getLeft(){return left;}
+ 	public BinaryNode getRight(){return right;}
+ 	public BinaryNode setLeft(BinaryNode n){left = n;}
+ 	public BinaryNode setRight(BinaryNode n){right = n;}
+ }
+ 
+ class BinTree{
+ 	private BinaryNode root;
+ 	
+ 	public BinTree(BinaryNode r);
+ 	public int size();
+ 	public boolean isEmpty();
+ 	public BinaryNode insert(BinaryNode n);
+ 	public BinaryNode remove(BinaryNode n);
+ 	
+ }
+ 
+ 
+ ## 2B ##
+ 
+ public void maxInPath(){
+ 	maxInPathRec(root, root.getKey());
+ }
+ private void maxInPath(BinaryNode n, k){
+ 	
+ 	if(n == null) return;
+ 	if(n.getKey() > k){
+ 		k = n.getKey;
+ 	}
+ 	n.setValue(k);
+ 	maxInPath(n.getRight(),k);
+ 	maxInPath(n.getLeft(),k);
+ }
+ 
+ vista in pre-ordine O(n)
+ 
+ ## 2C ##
+ 
+ public void subTreeSize(){
+  subTreeSize(root);	 
+ }
+ 
+ private int subTreeSize(BinaryNode n){
+ 	if(n == null) return 0;
+ 	int temp = subTreeSize(n.getLeft()) + subTreeSize(n.getRight()) + 1 );
+ 	n.setValue(temp);
+ 	return temp;
+ }
+ 
+ 
+ vista in post-ordine O(n)
+
+ ## 1A ##
+ 
+ 
+ Una possibile rappresentazione consiste nel mantenere per ogni nodo due liste di lati una per i follower ed una per i followed. Ogni lato memorizza i due nodi che partecipano al legame. Vanno mantenute anche due liste con tutti i nodi e tutti i lati.
+ 
+ 
+ ## 2A ##
+ 
+ public List<Vertex> mostFamousFollowe( Vertex u ){
+ 	
+ 	int maxFollower = 0;
+ 	LinkedList<Vertex> top = new LinkedList<Vertex>();
+ 	
+ 	for(Edge fed: u.getFollowed()){
+ 		Vertex temp = e.getFollowed()
+		int tempSize = temp.getFollowers().size();
+ 		if(tempSize >= maxFollowers){
+ 			if(tempSize > maxFollowers){
+ 				maxFollowers = tempSize;
+ 				top.clear();
+ 			}
+ 			top.add(temp);
+ 		}
+ 	}
+ 	
+ 	return top;
+ }
+ 
+ Caso peggiore u segue tutti gli altri. O(n)
+  
+  
+  ## 3C ##
+  
+  //not in place
+  
+  public List<Vertex> commonFollowings( Vertex u, Vertex v ){
+  	HashMap<Vertex,Integer> map = new 	HashMap<Integer,Integer>();
+  	
+  	for(Edge fed: u.getFollower()){
+  		Vertex temp = e.getFollowed();	  		
+ 		map.set( map.get(temp) + 1 );
+  	}
+  	for(Edge fed: v.getFollower()){
+  		Vertex temp = e.getFollowed();	  		
+ 		map.set( map.get(temp) + 1 );
+  	}
+  	
+  	LinkedList<Vertex> result = new LinkedList<Vertex>();
+  	
+  	for(Set<Map.Entry<Vertex,Integer>> e: map.entrySet()){
+  		if(e.getKey() == 2)
+  			result.add(e.getValue())
+  	}
+  	
+  	return result;
+  }
+  
+  O(f' + f'') dove f' sono i follower di u e f'' sono i follower di v;
+  
+  
+  
+  
+  
+ 
